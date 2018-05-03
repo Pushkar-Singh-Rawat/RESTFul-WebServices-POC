@@ -1,28 +1,36 @@
-package demo.api.v1.model;
+package demo.domain;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import lombok.Data;
 
+@Entity
+public class Category {
 
-public class CategoryDTO {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	
-	public CategoryDTO(){
-		
-	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -31,6 +39,7 @@ public class CategoryDTO {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -39,7 +48,7 @@ public class CategoryDTO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CategoryDTO other = (CategoryDTO) obj;
+		Category other = (Category) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -52,5 +61,9 @@ public class CategoryDTO {
 			return false;
 		return true;
 	}
-	
+
+	public Category() {
+
+	}
+
 }

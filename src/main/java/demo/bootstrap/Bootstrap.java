@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import demo.entity.Category;
+import demo.domain.Category;
 import demo.repositories.CategoryRepository;
 
 @Component
