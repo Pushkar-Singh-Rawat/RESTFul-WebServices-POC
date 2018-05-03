@@ -1,3 +1,6 @@
-demo\controller\HelloController.class
-demo\bean\Message.class
-demo\Spring_main.class
+demo\bootstrap\Bootstrap.class
+demo\api\v1\model\CategoryDTO.class
+demo\api\v1\mapper\CategoryMapper.class
+demo\domain\Category.class
+demo\SpringRestApplication.class
+demo\repositories\CategoryRepository.class

@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: demo.api.v1.mapper.CategoryMapperTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.023 sec <<< FAILURE! - in demo.api.v1.mapper.CategoryMapperTest
+testCategoryToCategoryDTO(demo.api.v1.mapper.CategoryMapperTest)  Time elapsed: 0.018 sec  <<< ERROR!
+java.lang.ExceptionInInitializerError: null
+	at org.mapstruct.factory.Mappers.getMapper(Mappers.java:93)
+	at org.mapstruct.factory.Mappers.getMapper(Mappers.java:76)
+	at demo.api.v1.mapper.CategoryMapper.<clinit>(CategoryMapper.java:11)
+	at demo.api.v1.mapper.CategoryMapperTest.<init>(CategoryMapperTest.java:12)
+
