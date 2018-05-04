@@ -12,25 +12,25 @@ import demo.repositories.CategoryRepository;
 @Component
 public class Bootstrap implements CommandLineRunner{
 
-	CategoryRepository categoryRepository;
+	private CategoryRepository categoryRepository;
 	
 	public Bootstrap(CategoryRepository categoryRepository){
 		this.categoryRepository=categoryRepository;
 	}
 
 	@Override
-	public void run(String... arg0) throws Exception {
+	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		Category fruits=new Category();
 		fruits.setName("Fruits");
 		Category dried=new Category();
-		fruits.setName("Dried");
+		dried.setName("Dried");
 		Category fresh=new Category();
-		fruits.setName("Fresh");
+		fresh.setName("Fresh");
 		Category exotic=new Category();
-		fruits.setName("Exotic");
+		exotic.setName("Exotic");
 		Category nuts=new Category();
-		fruits.setName("Nuts");
+		nuts.setName("Nuts");
 		/*List<Category> categories=new ArrayList<>();
 		categories.add(fruits);
 		categories.add(nuts);
@@ -41,9 +41,10 @@ public class Bootstrap implements CommandLineRunner{
 		
 		categoryRepository.save(fruits);
 		categoryRepository.save(dried);
+		categoryRepository.save(nuts);
 		categoryRepository.save(fresh);
 		categoryRepository.save(exotic);
-		categoryRepository.save(nuts);
+		
 		
 		System.out.println("data loaded +++++++"+categoryRepository.count());
 		
