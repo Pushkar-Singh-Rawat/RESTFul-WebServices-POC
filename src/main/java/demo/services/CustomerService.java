@@ -6,5 +6,7 @@ import demo.api.v1.model.CustomerDTO;
 
 public interface CustomerService {
 
-	public List<CustomerDTO> getAllCustomers();
+	List<CustomerDTO> getAllCustomers();
+	CustomerDTO getCustomerByID(Long Id);
+	CustomerDTO createNewCustomer(CustomerDTO customerDTO);
 }
