@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import demo.api.v1.model.CustomerDTO;
@@ -13,7 +15,7 @@ import demo.api.v1.model.CustomerDTOList;
 import demo.services.CustomerService;
 
 @Controller
-@RequestMapping("/api/v1/customers/")
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
 
 	private CustomerService customerService;
@@ -27,7 +29,7 @@ public class CustomerController {
 				, HttpStatus.OK);
 	}
 	
-	@GetMapping({"{Id}"})
+	@GetMapping({"/{Id}"})
 	public ResponseEntity<CustomerDTO> getAllCustomers(@PathVariable String Id){
 		return new ResponseEntity<CustomerDTO>(
 				customerService.getCustomerByID(Long.valueOf(Id))
@@ -35,7 +37,21 @@ public class CustomerController {
 	}
 	
 	@PostMapping
-	public void createNewCustomer(){
+	public ResponseEntity<CustomerDTO> createNewCustomer(@RequestBody CustomerDTO customerDTO){
 		
+		return new ResponseEntity<CustomerDTO>(
+				customerService.createNewCustomer(customerDTO)
+				,HttpStatus.CREATED
+				);
 	}
+	
+	@PutMapping({"/{Id}"})
+	public ResponseEntity<CustomerDTO> updateCustomer(@RequestBody CustomerDTO customerDTO,@PathVariable Long Id){
+		
+		return new ResponseEntity<CustomerDTO>(
+				customerService.saveCustomerByID(Id, customerDTO)
+				,HttpStatus.OK
+				);
+	}
+	
 }
