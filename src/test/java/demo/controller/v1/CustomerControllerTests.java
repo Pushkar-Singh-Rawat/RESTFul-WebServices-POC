@@ -39,15 +39,15 @@ public class CustomerControllerTests {
 		CustomerDTO returnDTO=new CustomerDTO();
 		returnDTO.setFirstname(customerDto.getFirstname());
 		returnDTO.setLastname(customerDto.getLastname());
-		returnDTO.setCustomerURL("/api/v1/customers/1");
+		returnDTO.setCustomerURL(CustomerController.BASE_URL+"/1");
 		
 		Mockito.when(customerService.createNewCustomer(customerDto)).thenReturn(returnDTO);
-		mockMvc.perform(post("/api/v1/customers/")
+		mockMvc.perform(post(CustomerController.BASE_URL)
 				.contentType(MediaType.APPLICATION_JSON)
 				 .content(restTestHelper.asJsonString(customerDto)))
 		.andExpect(status().isCreated())
 		.andExpect(jsonPath("$.firstname",equalTo("Shyam")))
-		.andExpect(jsonPath("$.customer_url",equalTo("/api/v1/customers/1")));
+		.andExpect(jsonPath("$.customer_url",equalTo(CustomerController.BASE_URL+"/1")));
 		
 	}
 }

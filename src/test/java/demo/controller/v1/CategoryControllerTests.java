@@ -18,8 +18,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import org.mockito.*;
 import demo.api.v1.model.CategoryDTO;
+import demo.controllers.RestResponseEntityExceptionHandler;
 import demo.controllers.v1.CategoryController;
 import demo.services.CategoryService;
+import demo.services.ResourceNotFoundException;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatcher.*;
@@ -37,7 +40,8 @@ public class CategoryControllerTests {
 	@Before
 	public void setup(){
 		MockitoAnnotations.initMocks(this);
-		mockMVC=MockMvcBuilders.standaloneSetup(categoryController).build();    
+		mockMVC=MockMvcBuilders.standaloneSetup(categoryController)
+				.setControllerAdvice(new RestResponseEntityExceptionHandler()).build();    
 	}
 
 	@Test
@@ -58,7 +62,7 @@ public class CategoryControllerTests {
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.categories",hasSize(2)));	
 	}
-	
+
 	@Test
 	public void testGetCategoryByName() throws Exception{
 		CategoryDTO one=new CategoryDTO();
@@ -66,10 +70,17 @@ public class CategoryControllerTests {
 		one.setId(1L);
 		Mockito.when(categoryservice.getCategoryByName(Mockito.anyString())).thenReturn(one);
 		mockMVC.perform(get("/api/v1/categories/"+NAME1)
-		.contentType(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.name", equalTo(NAME1)));
 	}
-	
+	@Test
+	public void testGetCategoryByNameNotFound() throws Exception{
 
+		Mockito.when(categoryservice.getCategoryByName(Mockito.anyString())).thenThrow(ResourceNotFoundException.class);
+		mockMVC.perform(get("/api/v1/categories/"+NAME1)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().isNotFound());
+
+	}
 }
