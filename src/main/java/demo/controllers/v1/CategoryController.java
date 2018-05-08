@@ -8,13 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import demo.api.v1.model.CategoryDTO;
 import demo.api.v1.model.CategoryDTOList;
 import demo.services.CategoryService;
 
-@Controller
-@RequestMapping("/api/v1/categories/")
+@RestController // combination of controller and responsebody annotations.
+@RequestMapping("/api/v1/categories")
 public class CategoryController {
 	private final CategoryService categoryService;
 
@@ -23,24 +25,25 @@ public class CategoryController {
 	}
 
 	/*
-	 * @GetMapping("/api/v1/categories/") public List<CategoryDTO>
-	 * getAllCategories() {
-	 * 
-	 * return categoryService.getAllCategories(); }
+	 * @GetMapping public ResponseEntity<CategoryDTOList> getAllCategories() {
+	 * return new ResponseEntity<CategoryDTOList>(new
+	 * CategoryDTOList(categoryService.getAllCategories()), HttpStatus.OK); }
 	 */
 	@GetMapping
-	public ResponseEntity<CategoryDTOList> getAllCategories() {
-		return new ResponseEntity<CategoryDTOList>(new CategoryDTOList(categoryService.getAllCategories()),
-				HttpStatus.OK);
+	@ResponseStatus(HttpStatus.OK)
+	public CategoryDTOList getAllCategories() {
+		return new CategoryDTOList(categoryService.getAllCategories());
 	}
 
-	@GetMapping("{name}")
-	public ResponseEntity<CategoryDTO> getCategoryByName(@PathVariable String name) {
-		return new ResponseEntity<CategoryDTO>(
-				categoryService
-				.getCategoryByName(name),
-				HttpStatus.OK);
-
+	/*
+	 * @GetMapping("/{name}") public ResponseEntity<CategoryDTO>
+	 * getCategoryByName(@PathVariable String name) { return new
+	 * ResponseEntity<CategoryDTO>( categoryService .getCategoryByName(name),
+	 * HttpStatus.OK);}
+	 */
+	@GetMapping("/{name}")
+	@ResponseStatus(HttpStatus.OK)
+	public CategoryDTO getCategoryByName(@PathVariable String name) {
+		return categoryService.getCategoryByName(name);
 	}
-
 }
