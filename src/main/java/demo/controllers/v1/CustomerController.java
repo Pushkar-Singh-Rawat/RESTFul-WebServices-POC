@@ -3,6 +3,7 @@ package demo.controllers.v1;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +16,10 @@ import demo.api.v1.model.CustomerDTOList;
 import demo.services.CustomerService;
 
 @Controller
-@RequestMapping("/api/v1/customers")
+@RequestMapping(CustomerController.BASE_URL)
 public class CustomerController {
 
+	public final static String BASE_URL="/api/v1/customers";
 	private CustomerService customerService;
 	public CustomerController(CustomerService customerService) {
 		this.customerService=customerService;
@@ -54,4 +56,12 @@ public class CustomerController {
 				);
 	}
 	
+	@DeleteMapping({"/{Id}"})
+	public ResponseEntity<Void> updateCustomer(@PathVariable Long Id){
+		
+		customerService.deleteCustomerByID(Id);
+		return new ResponseEntity<Void>(
+				HttpStatus.OK
+				);
+	}
 }
