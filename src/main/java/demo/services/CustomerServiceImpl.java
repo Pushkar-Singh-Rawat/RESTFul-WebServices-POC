@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import demo.api.v1.model.CustomerDTO;
+import demo.controllers.v1.CustomerController;
 import demo.converters.CustomerDtoToCustomer;
 import demo.converters.CustomerToCustomerDTO;
 import demo.domain.Customer;
@@ -29,7 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<CustomerDTO> getAllCustomers() {
 		return customerRepository.findAll().stream().map(customer -> {
 			CustomerDTO customerDTO = customerToCustomerDTO.convert(customer);
-			customerDTO.setCustomerURL("/api/v1/customers/" + customer.getId());
+			customerDTO.setCustomerURL(CustomerController.BASE_URL + customer.getId());
 			return customerDTO;
 		}).collect(Collectors.toList());
 
@@ -40,10 +41,10 @@ public class CustomerServiceImpl implements CustomerService {
 
 		Customer customer = customerRepository.findOne(Id);
 		if (customer == null) {
-			throw new RuntimeException();
+			throw new ResourceNotFoundException();
 		} else {
 			CustomerDTO customerDTO = customerToCustomerDTO.convert(customer);
-			customerDTO.setCustomerURL("/api/v1/customers/" + customer.getId());
+			customerDTO.setCustomerURL(CustomerController.BASE_URL + customer.getId());
 			return customerDTO;
 		}
 	}
@@ -58,7 +59,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		Customer savedCustomerDTO = customerRepository.save(customer);
 		CustomerDTO returnDTO = customerToCustomerDTO.convert(savedCustomerDTO);
-		returnDTO.setCustomerURL("/api/v1/customer/" + savedCustomerDTO.getId());
+		returnDTO.setCustomerURL(CustomerController.BASE_URL + savedCustomerDTO.getId());
 		return returnDTO;
 
 	}
@@ -68,6 +69,11 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer customer = customerDtoToCustomer.convert(customerDTO);
 		customer.setId(Id);
 		return saveAndReturnDTO(customer);
+	}
+
+	@Override
+	public void deleteCustomerByID(Long Id) {
+		customerRepository.delete(Id);
 	}
 
 
