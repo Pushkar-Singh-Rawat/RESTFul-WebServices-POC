@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import demo.api.v1.model.CategoryDTO;
 import demo.api.v1.model.CategoryDTOList;
 import demo.services.CategoryService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api
 @RestController // combination of controller and responsebody annotations.
 @RequestMapping("/api/v1/categories")
 public class CategoryController {
@@ -29,6 +32,7 @@ public class CategoryController {
 	 * return new ResponseEntity<CategoryDTOList>(new
 	 * CategoryDTOList(categoryService.getAllCategories()), HttpStatus.OK); }
 	 */
+	@ApiOperation(notes="these are some of the API notes",value="This will get a list of categories")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public CategoryDTOList getAllCategories() {
@@ -41,6 +45,7 @@ public class CategoryController {
 	 * ResponseEntity<CategoryDTO>( categoryService .getCategoryByName(name),
 	 * HttpStatus.OK);}
 	 */
+	@ApiOperation(notes="these are some of the API notes",value="This will get any category by name.")
 	@GetMapping("/{name}")
 	@ResponseStatus(HttpStatus.OK)
 	public CategoryDTO getCategoryByName(@PathVariable String name) {
