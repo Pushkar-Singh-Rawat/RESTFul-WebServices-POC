@@ -32,7 +32,7 @@ public class SwaggerConfig {
 	private ApiInfo metaData(){
 		Contact contact=new Contact("Pushkar Singh Rawat", "https://linkedin.com/in/pushkar-singh-rawat-24540787/",
                 "pushkarsinghrawat7@gmail.com");
-		return new ApiInfo("Rest API","APIs developed with Spring framework", "v0.1", "Terms of service",contact,"Apache License Version 2.0", "https://www.apache.org/license/License-2.0",
+		return new ApiInfo("Spring Rest API","API Author: Pushkar Singh Rawat.", "v0.1", "Terms of service",contact,"Apache License Version 2.0", "https://www.apache.org/license/License-2.0",
 				new ArrayList<>());
 	}
 	
