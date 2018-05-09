@@ -14,5 +14,5 @@ public class CustomerDTO {
 	private String lastname;
 	@JsonProperty("customer_url")
 	private String customerURL;
-	private Long Id;
+	/*private Long Id;*/
 }
