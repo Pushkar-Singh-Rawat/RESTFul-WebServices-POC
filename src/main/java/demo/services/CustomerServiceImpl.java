@@ -44,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
 			throw new ResourceNotFoundException();
 		} else {
 			CustomerDTO customerDTO = customerToCustomerDTO.convert(customer);
-			customerDTO.setCustomerURL(CustomerController.BASE_URL + customer.getId());
+			customerDTO.setCustomerURL(CustomerController.BASE_URL+"/" + customer.getId());
 			return customerDTO;
 		}
 	}
@@ -59,7 +59,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		Customer savedCustomerDTO = customerRepository.save(customer);
 		CustomerDTO returnDTO = customerToCustomerDTO.convert(savedCustomerDTO);
-		returnDTO.setCustomerURL(CustomerController.BASE_URL + savedCustomerDTO.getId());
+		returnDTO.setCustomerURL(CustomerController.BASE_URL+"/" + savedCustomerDTO.getId());
 		return returnDTO;
 
 	}
