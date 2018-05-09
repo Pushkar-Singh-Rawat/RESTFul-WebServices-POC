@@ -32,7 +32,7 @@ public class CustomerController {
 	}
 	
 	@GetMapping({"/{Id}"})
-	public ResponseEntity<CustomerDTO> getAllCustomers(@PathVariable String Id){
+	public ResponseEntity<CustomerDTO> getAllCustomersById(@PathVariable String Id){
 		return new ResponseEntity<CustomerDTO>(
 				customerService.getCustomerByID(Long.valueOf(Id))
 				, HttpStatus.OK);
@@ -57,7 +57,7 @@ public class CustomerController {
 	}
 	
 	@DeleteMapping({"/{Id}"})
-	public ResponseEntity<Void> updateCustomer(@PathVariable Long Id){
+	public ResponseEntity<Void> deleteCustomerById(@PathVariable Long Id){
 		
 		customerService.deleteCustomerByID(Id);
 		return new ResponseEntity<Void>(
