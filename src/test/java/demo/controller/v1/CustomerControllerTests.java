@@ -43,6 +43,7 @@ public class CustomerControllerTests {
 		
 		Mockito.when(customerService.createNewCustomer(customerDto)).thenReturn(returnDTO);
 		mockMvc.perform(post(CustomerController.BASE_URL)
+				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON)
 				 .content(restTestHelper.asJsonString(customerDto)))
 		.andExpect(status().isCreated())

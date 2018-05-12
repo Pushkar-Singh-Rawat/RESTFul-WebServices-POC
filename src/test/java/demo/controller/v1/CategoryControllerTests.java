@@ -58,6 +58,7 @@ public class CategoryControllerTests {
 		List<CategoryDTO> catList=Arrays.asList(one,two);
 		Mockito.when(categoryservice.getAllCategories()).thenReturn(catList);
 		mockMVC.perform(get("/api/v1/categories/")
+				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.categories",hasSize(2)));	
@@ -70,6 +71,7 @@ public class CategoryControllerTests {
 		one.setId(1L);
 		Mockito.when(categoryservice.getCategoryByName(Mockito.anyString())).thenReturn(one);
 		mockMVC.perform(get("/api/v1/categories/"+NAME1)
+				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.name", equalTo(NAME1)));
@@ -79,6 +81,7 @@ public class CategoryControllerTests {
 
 		Mockito.when(categoryservice.getCategoryByName(Mockito.anyString())).thenThrow(ResourceNotFoundException.class);
 		mockMVC.perform(get("/api/v1/categories/"+NAME1)
+				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(status().isNotFound());
 
